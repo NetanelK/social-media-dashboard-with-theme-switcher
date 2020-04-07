@@ -6,11 +6,19 @@ $colors: (facebook: hsl(195, 100%, 50%),
           youtube: hsl(348, 97%, 39%));
 $icons: ('facebook', 'twitter', 'instagram', 'youtube');
 
+@mixin desktop {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
 :root{
     --bg: white;
     --bg-p:  hsl(228, 12%, 44%);
     --card-bg: hsl(227, 47%, 96%);
+    --card-hover:#e5e8f6;
     --h1: black;
+    --h2: hsl(228, 12%, 44%);
     --span: hsl(228, 12%, 44%);
     --toggle: hsla(228, 34%, 66%, .6);
     --toggle-c: white;
@@ -26,41 +34,69 @@ body{
     font: 400 14px 'Inter';
 
     background-color: var(--bg);
+    transition: background-color .75s linear;
+
 }
 
 .header {
     position: relative;
-    padding: 2em 2rem 1.5em 2rem;
+    padding: 2em 2rem 0 2rem;
     margin: 0 auto;
-    max-width: 375px;
+    max-width: 400px;
 
+    @include desktop(){
+       max-width: 1240px;
+       margin: 0 auto 2em auto;
+    }
 
     h2{
         color: var(--h1);
     }
 
-    span{
+    .after{
         color: var(--span);
         font-weight: 700;
+
+        &::after{
+            content: '';
+            display: block;
+            width: 83%;
+            height: 1px;
+            // padding: 0 2rem;
+            background-color: var(--span);
+    
+            position: absolute;
+            margin-top: 1em;
+            // bottom: 3px;
+    
+            @include desktop(){
+                display: none;
+            }
+        }
     }
 
-    &::after{
-        content: '';
-        display: block;
-        width: 83%;
-        height: 1px;
-        // padding: 0 2rem;
-        background-color: var(--span);
-
-        position: absolute;
-        bottom: 3px;
-    }
+    
 }
 
 .toggle-wrap{
-    margin: 1em auto;
-    max-width: 375px;
-    padding: 0 2rem;
+    margin: 2em auto 3em auto;
+    max-width: 400px;
+    // padding: 0 2rem;
+
+    text-align: left;
+
+    @include desktop(){
+        display: inline;
+        float: right;
+
+        position: absolute;
+        top: 1rem;
+        right: 2rem;
+
+        &>span{
+            margin-right: 1em;
+        }
+    }
 
     #chk{
         display: none;
@@ -90,6 +126,11 @@ body{
         border-radius: 10px;
         background: var(--toggle);
         position: relative;
+        cursor: pointer;
+
+        &:hover{
+            background: linear-gradient(to right, hsl(210, 78%, 56%) ,hsl(146, 68%, 55%));
+        }
 
         span{
             content: '';
@@ -109,17 +150,36 @@ body{
 }
 
 .cards{
-    max-width: 375px;
+    max-width: 400px;
     margin: 0 auto;
+
+    @include desktop{
+        max-width: unset;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
 
     .card{
         text-align: center;
         margin: 1.5em 2.5em;
-        padding: 1.5em 0;
+        padding: 2em 0;
         border-radius: 5px;
+        cursor: pointer;
         position: relative;
 
         background-color: var(--card-bg);
+        transition: background-color .75s ease;
+
+        @include desktop(){
+            margin: 1em 2em;
+            width: 100%;
+            max-width: 250px;
+        }
+
+        &:hover{
+            background-color: var(--card-hover);
+        }
 
         @each $icon in $icons {
             &.#{$icon}::before{
@@ -206,19 +266,43 @@ body{
 
 .overview{
     margin: 0 auto;
-    max-width: 375px;
+    max-width: 400px;
+
+    @include desktop(){
+        max-width: 1240px;
+        margin: 0 auto 2em auto;
+
+        .card-wrap-one, .card-wrap-two{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            .card{
+                max-width: 250px;
+                width: 100%;
+                margin: 1em 2em;
+            }
+        }
+    }
 
     h1{
         margin: 1.5em 2rem 0 2rem;
-        color: var(--h1);
+        color: var(--h2);
         font-size: 24px;
+
+        @include desktop(){
+            margin: 1.5em 0 .75rem 2.25rem;
+        }
     }
+
     .card{
         margin: 1.5em 2.5em;
         padding: 1.5em 1.75em;
+        cursor: pointer;
         border-radius: 5px;
 
         background-color: var(--card-bg);
+        transition: background-color .75s ease;
 
         @each $icon in $icons {
             &.#{$icon} .head{
@@ -237,7 +321,6 @@ body{
             }
         }
         
-
         h2{
             display: inline;
             color: var(--h1);

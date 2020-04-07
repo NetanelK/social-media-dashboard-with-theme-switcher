@@ -12,7 +12,9 @@ window.onload = () => {
         "--card-bg",
         "hsl(228, 28%, 20%)"
       );
+      document.documentElement.style.setProperty("--card-hover", "#2e3552");
       document.documentElement.style.setProperty("--h1", "white");
+      document.documentElement.style.setProperty("--h2", "white");
       document.documentElement.style.setProperty(
         "--span",
         "hsl(228, 34%, 66%)"
@@ -23,7 +25,9 @@ window.onload = () => {
         "--card-bg",
         "hsl(227, 47%, 96%)"
       );
+      document.documentElement.style.setProperty("--card-hover", "#e5e8f6");
       document.documentElement.style.setProperty("--h1", "black");
+      document.documentElement.style.setProperty("--h2", "hsl(228, 12%, 44%)");
       document.documentElement.style.setProperty(
         "--span",
         "hsl(228, 12%, 44%)"
